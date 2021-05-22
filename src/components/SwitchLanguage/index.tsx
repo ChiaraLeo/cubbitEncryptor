@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { ConstString } from '../../language/encryptStrings'
-import { CubbitReduxStore } from '../../redux'
-import { setLanguage } from '../../redux/Modules/Generic/Actions'
+import { ConstString } from 'language/encryptStrings'
+import { CubbitReduxStore } from '_redux'
+import { setLanguage } from '_redux/Modules/Generic/Actions'
 import Switch from '../Switch'
 import Translator from '../Translator'
 

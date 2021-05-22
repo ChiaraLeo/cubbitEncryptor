@@ -10,10 +10,10 @@ const Switch = (props: {
   const { label1, label2, onChange, checked } = props
 
   return <Container>
-    <Button isActive={!checked} onClick={() => onChange(true)}>
+    <Button isActive={checked} onClick={() => onChange(true)}>
       {label1}
     </Button>
-    <Button isActive={checked} onClick={() => onChange(false)}>
+    <Button isActive={!checked} onClick={() => onChange(false)}>
       {label2}
     </Button>
   </Container>
@@ -21,9 +21,20 @@ const Switch = (props: {
 
 const Container = styled.div`
 position: absolute;
-right: 160px;
-top: 16px;
 border: 1px solid #009EFF;
+@media(min-width: 936px) {
+  right: 160px;
+  top: 16px;
+}
+
+@media(max-width: 936px) {
+  top: 96px;
+  left: 0; 
+  right: 0; 
+  width: 240px;
+  margin-left: auto; 
+  margin-right: auto; 
+}
 `
 
 interface PropsGlobalStyle {
@@ -38,13 +49,21 @@ font-size: 14px;
 line-height: 187.5%;
 height: 40px;
 width: 120px;
-/* or 26px */
 cursor: pointer;
 border: none;
 align-items: center;
 text-align: center;
-background: ${(props: PropsGlobalStyle) => props.isActive ? '#009EFF' : '#363636'};
 color: #FFFFFF;
+background: #363636;
+
+${(props: PropsGlobalStyle) => !props.isActive ? `
+  width: 0;
+  width: 120px;
+  height: 40px;
+  background-color: #009EFF;
+  -webkit-transition: .5s;
+  transition: .5s
+` : ``};
 `
 
 export default Switch

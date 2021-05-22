@@ -35,14 +35,10 @@ font-family: Nunito;
 font-style: normal;
 font-weight: 900;
 font-size: 36px;
-line-height: 47px;
-/* identical to box height, or 130% */
-
-display: flex;
-align-items: center;
 text-align: center;
-
 color: #FFFFFF;
+padding: 0px;
+margin: 0px;
 `
 
 const PTag = styled.p`
@@ -50,25 +46,25 @@ font-family: Nunito;
 font-style: normal;
 font-weight: normal;
 text-align: center;
+padding: 0px;
+margin: 0px;
 `
 
 const Subtitle = styled(PTag)`
 font-size: 16px;
 line-height: 26px;
-/* or 162% */
 color: #FFFFFF;
+padding: 0px;
+margin: 0px;
 `
 
 const Caption = styled(PTag)`
 font-size: 14px;
 line-height: 23px;
-/* or 162% */
-
-display: flex;
-align-items: flex-end;
 text-align: center;
-
 color: #98A0A6;
+padding: 0px;
+margin: 0px;
 `
 
 export default Typography

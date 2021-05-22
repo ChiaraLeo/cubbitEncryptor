@@ -1,17 +1,29 @@
 export enum ConstString {
   TITLE = 'TITLE',
   SUBTITLE = 'SUBTITLE',
+  DOWNLOAD= 'DOWNLOAD',
   FOOTER = 'FOOTER',
   SWITCHLABEL1 = 'SWITCHLABEL1',
   SWITCHLABEL2 = 'SWITCHLABEL2',
-  SELECTFILE = 'SELECTFILE'
+  SELECTFILE = 'SELECTFILE',
+  DROPFILEHERE = 'DROPFILEHERE',
+  DECRYPT = 'DECRYPT',
+  ENCRYPT = 'ENCRYPT',
+  INSERTYOURKEY = 'INSERTYOURKEY',
+  YOURENCRYPTIONKEY = 'YOURENCRYPTIONKEY'
 }
 
 export const encryptStrings = {
-  [ConstString.TITLE]: `U)tt{(2w"u&-$(#&`,
-  [ConstString.SUBTITLE]: `Sv*s"uwv2#" {"w2x{ w2w"u&-$({#"2s"v2vwu&-$({#"@2ewu)&w2s"-2x{ w2(-$w2s"v2!s{"(s{"2-#)&2$&{*su-3`,
-  [ConstString.SWITCHLABEL1]: `W"y {'z`,
-  [ConstString.SWITCHLABEL2]: `W"u&-$(wv`,
-  [ConstString.SELECTFILE]: `Uz##'w2x{ w3`,
-  [ConstString.FOOTER]: `fzw2+z# w2{'2"w*w&2(zw2')!2#x2(zw2$s&('2?2{(2{'2y&ws(w&2#&2 w''w&>2vw$w"v{"y2#"2z#+2+w 2(zw2{"v{*{v)s '2+#&}2(#yw(zw&`
+  [ConstString.DOWNLOAD]: `Download`,
+  [ConstString.INSERTYOURKEY]: `Insert your key:`,
+  [ConstString.YOURENCRYPTIONKEY]: `Your encryption key:`,
+  [ConstString.DROPFILEHERE]: `or drop file here`,
+  [ConstString.DECRYPT]: `Decrypt`,
+  [ConstString.ENCRYPT]: `Encrypt`,
+  [ConstString.TITLE]: `Cubbit encryptor`,
+  [ConstString.SUBTITLE]: `Advanced online file encryption and decryption. Secure any file type and maintain your privacy!`,
+  [ConstString.SWITCHLABEL1]: `English`,
+  [ConstString.SWITCHLABEL2]: `Encrypted`,
+  [ConstString.SELECTFILE]: `Choose file!`,
+  [ConstString.FOOTER]: `The whole is never the sum of the parts - it is greater or lesser, depending on how wel the individuals work together`
 }

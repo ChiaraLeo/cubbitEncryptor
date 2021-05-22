@@ -1,24 +1,28 @@
-import React from 'react';
-import styled from 'styled-components';
-import { decrypt, encrypt } from '../../utils';
-import SwitchLanguage from '../SwitchLanguage';
+import React from 'react'
+import styled from 'styled-components'
+import SwitchLanguage from '../SwitchLanguage'
 import { ReactComponent as Icon } from './logo.svg'
 type Props = {
   disabled: boolean;
 };
 
 const AppBar = () => {
-  decrypt({})
-  encrypt({})
   return (
-    <Bar>
-      <StyledIcon >
-        <Icon />
-      </StyledIcon>
-      <SwitchLanguage />
-    </Bar>
-  );
-};
+    <Container>
+      <Bar>
+        <StyledIcon >
+          <Icon />
+        </StyledIcon>
+        <SwitchLanguage />
+      </Bar>
+    </Container>
+  )
+}
+
+const Container = styled.div`
+height: 216px;
+background-color: #161616;
+`
 
 const StyledIcon = styled.svg`
 position: absolute;
@@ -37,6 +41,6 @@ right: 0;
 width: 100%;
 z-index: 1000;
 height: 72px;
-`;
+`
 
-export default AppBar;
+export default AppBar

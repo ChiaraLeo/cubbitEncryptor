@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { ConstString } from '../../language/encryptStrings'
-import { translate } from '../../language/languages'
-import { CubbitReduxStore } from '../../redux'
+import { ConstString } from 'language/encryptStrings'
+import { translate } from 'language/languages'
+import { CubbitReduxStore } from '_redux'
 
 const selectState = (state: CubbitReduxStore) => ({
   language: state.generic.language
