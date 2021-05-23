@@ -20,23 +20,20 @@ const Switch = (props: {
 }
 
 const Container = styled.div`
-position: absolute;
 border: 1px solid #009EFF;
 @media(min-width: 936px) {
+  position: absolute;
   right: 160px;
   top: 16px;
 }
 
 @media(max-width: 936px) {
-  top: 96px;
-  left: 0; 
-  right: 0; 
   width: 240px;
+  margin-top: 26px;
   margin-left: auto; 
   margin-right: auto; 
 }
 `
-
 interface PropsGlobalStyle {
   isActive: boolean
 }

@@ -1,5 +1,4 @@
 .App-main {
-  background-color: #161616;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -7,4 +6,8 @@
   justify-content: start;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+html {
+  background-color: #161616;
 }

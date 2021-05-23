@@ -8,6 +8,11 @@ export default function useMediaQuery (query: string) {
     if (media.matches !== matches) {
       setMatches(media.matches)
     }
+    const listener = () => {
+      setMatches(media.matches)
+    }
+    media.addListener(listener)
+    return () => media.removeListener(listener)
   }, [matches, query])
 
   return matches

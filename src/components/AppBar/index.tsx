@@ -15,23 +15,31 @@ const AppBar = () => {
   [history])
 
   return (
-    <Container>
-      <Bar>
-        <a onClick={handleClickIcon} >
-          <StyledIcon >
-            <Icon />
-          </StyledIcon>
-        </a>
-        {isDesktop && <SwitchLanguage />}
-      </Bar>
-      {!isDesktop && <SwitchLanguage />}
-    </Container>
+    <>
+      <Container>
+        <Bar>
+          <a onClick={handleClickIcon} >
+            <StyledIcon >
+              <Icon />
+            </StyledIcon>
+          </a>
+          {isDesktop && <SwitchLanguage />}
+        </Bar>
+      </Container>
+      <Container2>
+        {!isDesktop && <SwitchLanguage />}
+      </Container2>
+    </>
   )
 }
 
+const Container2 = styled.div`
+height: 144px;
+`
+
 const Container = styled.div`
-height: 216px;
 background-color: #161616;
+height: 72px;
 `
 
 const StyledIcon = styled.svg`

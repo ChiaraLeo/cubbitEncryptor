@@ -1,14 +1,13 @@
 
-
 const sumCodKey = (key: string) => {
-  return Array.from(key).reduce((acc, current) => acc+= current.charCodeAt(0), 0)
+  return Array.from(key).reduce((acc, current) => acc += current.charCodeAt(0), 0)
 }
 
 const shiftDownChar = (char: string, position: number) => {
   const decimalCodeChar = char.charCodeAt(0)
   const substractDecimal = position % 94
   let decimalCodeShifted = decimalCodeChar - substractDecimal
-  if(decimalCodeShifted < 32) {
+  if (decimalCodeShifted < 32) {
     const diff = 32 - decimalCodeShifted
     decimalCodeShifted = 126 - diff
   }
@@ -19,7 +18,7 @@ const shiftUpChar = (char: string, position: number) => {
   const decimalCodeChar = char.charCodeAt(0)
   const substractDecimal = position % 94
   let decimalCodeShifted = decimalCodeChar + substractDecimal
-  if(decimalCodeShifted > 125) {
+  if (decimalCodeShifted > 125) {
     const diff = decimalCodeShifted - 126
     decimalCodeShifted = 32 + diff
   }
@@ -47,3 +46,5 @@ export const encrypt = (props: { key?: string, text?: string }) : string => {
   const decriptedString = shiftUpChunk(text, sumKey).join('')
   return decriptedString
 }
+
+export const asyncTimeout = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
