@@ -26,18 +26,6 @@ const scaleFrame = keyframes`
 }
 `
 
-const backgroundKeyFrame = keyframes`
-0%   {
-  background: #FFA047;
-}
-50%  {
-  background: #161616;
-}
-100%  {
-  background: #FFA047;
-}
-`
-
 const ItemGrid = styled.div`
 flex: 0 0 33.333333%;
 `

@@ -33,7 +33,6 @@ const DowloadDecryptFile = () => {
     if (requestEncryption === ReduxRequestKey.REQUEST_SUCCESS) {
       const link = document.createElement('a')
       link.download = decryptedFile?.fileName || ''
-      console.log(decryptedFile?.url, 'decrypted url')
       link.href = decryptedFile?.url || ''
       document.body.appendChild(link)
       link.click()
@@ -42,7 +41,7 @@ const DowloadDecryptFile = () => {
     return () => {
       dispatch(requestResetAll())
     }
-  }, [requestEncryption])
+  }, [requestEncryption, decryptedFile, dispatch])
 
   return (
     <Container>

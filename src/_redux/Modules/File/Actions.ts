@@ -20,11 +20,11 @@ export const decryptFileByKey = (keyForDecrypt: string, requestKey: string) =>
       requestIsFetching(dispatch)(requestKey)
       const state: CubbitReduxStore = getState()
       const uploadedFile = state?.file?.uploadedFile
-      const wordArray = CryptoJS.lib.WordArray.create(uploadedFile?.buffer)
-      const encrypted = CryptoJS.AES.decrypt(wordArray.toString(CryptoJS.enc.Utf8), keyForDecrypt).toString()
-      const fileEnc = new Blob([encrypted])
-      const url = window.URL.createObjectURL(fileEnc)
-      const fileName = uploadedFile?.file.name.replace('.enc', '')
+      const stringBase64 = `data:application/pdf;base64,`
+      const stringToDecrypt = uploadedFile?.buffer.replace(stringBase64, '')
+      const decrypted = CryptoJS.AES.encrypt(stringToDecrypt, keyForDecrypt).toString()
+      const url = stringBase64 + decrypted
+      const fileName = uploadedFile?.file.name
 
       dispatch({
         type: ReduxFileKey.SET_DECRYPTED_FILE,
@@ -49,11 +49,11 @@ export const generateKeyAndEncryptFile = (uploadedFile: any, requestKey: string)
       const keyToShare = CryptoJS.PBKDF2('Secret Passphrase', salt, {
         keySize: 128 / 32
       }).toString()
+      const stringBase64 = `data:${uploadedFile.file.type};base64,`
+      const stringToEncrypt = uploadedFile?.buffer.replace(stringBase64, '')
 
-      const wordArray = CryptoJS.lib.WordArray.create(uploadedFile?.buffer)
-      const encrypted = CryptoJS.AES.encrypt(wordArray, keyToShare).toString()
-      const fileEnc = new Blob([encrypted])
-      const url = window.URL.createObjectURL(fileEnc)
+      const encrypted = CryptoJS.AES.encrypt(stringToEncrypt, keyToShare).toString()
+      const url = stringBase64 + encrypted
       const fileName = uploadedFile?.file.name + '.enc'
 
       dispatch({

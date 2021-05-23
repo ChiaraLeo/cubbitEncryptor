@@ -34,7 +34,7 @@ const Uploader = (props: {uploadedFile: any, onFileUpload: any}) => {
       }
     }
 
-    reader.readAsArrayBuffer(file)
+    reader.readAsDataURL(file)
   }, [onFileUpload])
 
   const { getRootProps, getInputProps, open } = useDropzone({ onDrop, multiple: false })
