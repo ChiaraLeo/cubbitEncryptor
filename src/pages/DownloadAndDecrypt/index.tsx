@@ -31,7 +31,13 @@ const DowloadDecryptFile = () => {
 
   useEffect(() => {
     if (requestEncryption === ReduxRequestKey.REQUEST_SUCCESS) {
-      // dowload file here
+      const link = document.createElement('a')
+      link.download = decryptedFile?.fileName || ''
+      console.log(decryptedFile?.url, 'decrypted url')
+      link.href = decryptedFile?.url || ''
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
     }
     return () => {
       dispatch(requestResetAll())

@@ -19,13 +19,14 @@ export const requestKeyEncryptFile = 'ENCRYPT_FILE_KEY'
 const selectState = (state: CubbitReduxStore) => ({
   uploadedFile: state.file.uploadedFile,
   isFetching: state?.request[requestKeyEncryptFile]?.status === ReduxRequestKey.REQUEST_FETCHING,
-  requestEncryption: state?.request?.[requestKeyEncryptFile]?.status
+  requestEncryption: state?.request?.[requestKeyEncryptFile]?.status,
+  request: state.request[requestKeyEncryptFile]
 })
 
 const UploadFile = () => {
   const dispatch = useDispatch()
   const history = useHistory()
-  const { uploadedFile, isFetching, requestEncryption } = useSelector(selectState)
+  const { uploadedFile, isFetching, requestEncryption, request } = useSelector(selectState)
   const [encrypttext, decrypttext] = useTranslate([
     ConstString.ENCRYPT,
     ConstString.DECRYPT
@@ -52,7 +53,7 @@ const UploadFile = () => {
   const onClickDecrypt = useCallback(() => {
     history.push(Routes.DOWNLOAD_DECRYPT_FILE)
   }, [history])
-
+  console.log(isFetching, 'isFetching', request)
   return (
     <>
       <PositionatedSubtitle>

@@ -13,7 +13,7 @@ const TextInput = (props: {
   }
 
   return <Container>
-    <Input type='text' value={value} onChange={onChange} />
+    <Input type='text' value={value} onChange={onChange} readOnly={!onChange} />
     {withCopyButton && <Button onClick={handleClickCopy}>Copy</Button>}
   </Container>
 }

@@ -20,9 +20,10 @@ export const decryptFileByKey = (keyForDecrypt: string, requestKey: string) =>
       requestIsFetching(dispatch)(requestKey)
       const state: CubbitReduxStore = getState()
       const uploadedFile = state?.file?.uploadedFile
-      const decryptFile = CryptoJS.AES.decrypt(uploadedFile?.buffer, keyForDecrypt).toString()
-      const fileDecrypt = new Blob([decryptFile])
-      const url = window.URL.createObjectURL(fileDecrypt)
+      const wordArray = CryptoJS.lib.WordArray.create(uploadedFile?.buffer)
+      const encrypted = CryptoJS.AES.decrypt(wordArray.toString(CryptoJS.enc.Utf8), keyForDecrypt).toString()
+      const fileEnc = new Blob([encrypted])
+      const url = window.URL.createObjectURL(fileEnc)
       const fileName = uploadedFile?.file.name.replace('.enc', '')
 
       dispatch({
@@ -49,7 +50,8 @@ export const generateKeyAndEncryptFile = (uploadedFile: any, requestKey: string)
         keySize: 128 / 32
       }).toString()
 
-      const encrypted = CryptoJS.AES.encrypt(uploadedFile?.buffer, keyToShare).toString()
+      const wordArray = CryptoJS.lib.WordArray.create(uploadedFile?.buffer)
+      const encrypted = CryptoJS.AES.encrypt(wordArray, keyToShare).toString()
       const fileEnc = new Blob([encrypted])
       const url = window.URL.createObjectURL(fileEnc)
       const fileName = uploadedFile?.file.name + '.enc'
