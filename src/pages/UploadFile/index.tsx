@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { ConstString } from 'language/encryptStrings'
-import Translator from 'components/Translator'
 import { useDropzone } from 'react-dropzone'
 import StyledButton from 'components/Button'
 import IconFileName from 'components/IconFileName'
@@ -14,6 +13,10 @@ import { Routes } from 'routes'
 import { ReactComponent as Icon } from './icon.svg'
 import { ReactComponent as ArrowDown } from './arrowDown.svg'
 import Typography from 'components/Typography'
+import useTranslate from 'customHooks/useTranslate'
+import { requestResetAll } from '_redux/Modules/Request/Actions'
+
+export const asyncTimeout = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 export const requestKeyEncryptFile = 'ENCRYPT_FILE_KEY'
 
@@ -27,20 +30,32 @@ const UploadFile = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const { uploadedFile, isFetching, requestEncryption } = useSelector(selectState)
-  const SELECTFILE = Translator({ constant: ConstString.SELECTFILE })
-  const DROPFILEHERE = Translator({ constant: ConstString.DROPFILEHERE })
-  const ENCRYPT = Translator({ constant: ConstString.ENCRYPT })
-  const DECRYPT = Translator({ constant: ConstString.DECRYPT })
+  const [progressUpload, setProgressUpload] = useState(0)
+  const [selectfiletext, dropfileheretext, encrypttext, decrypttext] = useTranslate([
+    ConstString.SELECTFILE,
+    ConstString.DROPFILEHERE,
+    ConstString.ENCRYPT,
+    ConstString.DECRYPT
+  ])
 
   const onDrop = useCallback(files => {
     const file = files[0]
     const reader = new FileReader()
-    reader.onload = (e: any) => {
+    reader.onload = async (e: any) => {
       dispatch(setUploadedFile({ file, buffer: e.target.result }))
+      await asyncTimeout(400)
+      setProgressUpload(0)
+    }
+
+    reader.onprogress = (e: any) => {
+      if (e.lengthComputable) {
+        const percentLoaded = Math.round((e.loaded / e.total) * 100)
+        setProgressUpload(percentLoaded)
+      }
     }
 
     reader.readAsArrayBuffer(file)
-  }, [dispatch, setUploadedFile])
+  }, [dispatch])
 
   const { getRootProps, getInputProps, open } = useDropzone({ onDrop, multiple: false })
 
@@ -52,7 +67,10 @@ const UploadFile = () => {
     if (requestEncryption === ReduxRequestKey.REQUEST_SUCCESS) {
       history.push(Routes.DOWNLOAD_FILE)
     }
-  }, [requestEncryption])
+    return () => {
+      dispatch(requestResetAll())
+    }
+  }, [requestEncryption, history, dispatch])
 
   const onClickDecrypt = useCallback(() => {
     history.push(Routes.DOWNLOAD_DECRYPT_FILE)
@@ -69,22 +87,23 @@ const UploadFile = () => {
           {!uploadedFile?.file ? <>
             <ButtonFile type='button' onClick={open}>
               <StyledIcon />
-              <ButtonFileText> {SELECTFILE}</ButtonFileText>
+              <ButtonFileText> {selectfiletext}</ButtonFileText>
               <StyledArrowDown />
             </ButtonFile>
-            <Text> {DROPFILEHERE}</Text>
+            <Text> {dropfileheretext}</Text>
           </> : <IconFileName fileName={uploadedFile?.file.name} />}
+          {progressUpload !== 0 && <ProgressBar progressUpload={progressUpload} />}
         </DragArea>
       </Container>
       <div>
         <StyledButton
-          label={ENCRYPT}
+          label={encrypttext}
           disabled={!uploadedFile}
           onClick={onClickEncypt}
         />
         <StyledButton
           secondary
-          label={DECRYPT}
+          label={decrypttext}
           disabled={!uploadedFile}
           onClick={onClickDecrypt}
         />
@@ -93,6 +112,19 @@ const UploadFile = () => {
 
   )
 }
+interface ProgressBarProps {
+  progressUpload: number
+}
+
+const ProgressBar = styled.div`
+width: ${(props: ProgressBarProps) => `${props.progressUpload}%`};
+height: 10px;
+background: #363636;
+margin-top: auto;
+margin-bottom: 0px;
+transition : width 0.4s linear;
+align-self: start;
+`
 
 const PositionatedSubtitle = styled.div`
 margin-top: 24px;

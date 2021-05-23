@@ -26,6 +26,5 @@ color: ${(props: Props) => props.secondary ? '#FFFFFF' : '#292929'}
 const StyledIcon = styled.svg`
 width: 38px;
 height: 44px;
-fill: ${(props: Props) => props.secondary ? '#FFFFFF' : '#292929'}
-color: ${(props: Props) => props.secondary ? '#FFFFFF' : '#292929'}
+fill: ${(props: Props) => props.secondary ? '#FFFFFF' : '#292929'};
 `

@@ -1,12 +1,12 @@
 import React from 'react'
 import { ConstString } from 'language/encryptStrings'
-import Translator from 'components/Translator'
 import { CubbitReduxStore } from '_redux'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import IconFileName from 'components/IconFileName'
 import OrangeButton from 'components/OrangeButton'
 import TextInput from 'components/TextInput'
+import useTranslate from 'customHooks/useTranslate'
 
 const selectState = (state: CubbitReduxStore) => ({
   urlFile: state.file.encryptedFile?.url,
@@ -16,17 +16,15 @@ const selectState = (state: CubbitReduxStore) => ({
 
 const DowloadFile = () => {
   const { urlFile, fileName, keyToShare = '' } = useSelector(selectState)
-  const DOWNLOAD = Translator({ constant: ConstString.DOWNLOAD })
-  const ENCRYPTIONKEY = Translator({ constant: ConstString.YOURENCRYPTIONKEY })
-
+  const [dowloadtext, encryptionkeytext] = useTranslate([ConstString.DOWNLOAD, ConstString.YOURENCRYPTIONKEY])
   return (
     <Container>
       <ContainerIcon>
         <IconFileName fileName={fileName || ''} secondary />
       </ContainerIcon>
-      <StyledText>{ENCRYPTIONKEY}</StyledText>
-      <TextInput value={keyToShare || ''} />
-      <OrangeButton download={fileName || ''} href={urlFile || ''} label={DOWNLOAD} />
+      <StyledText>{encryptionkeytext}</StyledText>
+      <TextInput withCopyButton value={keyToShare || ''} />
+      <OrangeButton download={fileName || ''} href={urlFile || ''} label={dowloadtext} />
     </Container>
   )
 }
@@ -43,8 +41,15 @@ padding: 0;
 `
 
 const ContainerIcon = styled.div`
-width: 552px;
+
 height: 102px;
+@media(min-width: 936px) {
+  width: 552px;
+}
+
+@media(max-width: 936px) {
+  width: 100%;
+}
 padding-top: 18px;
 margin-bottom: 22px;
 border: 1px solid #363636;

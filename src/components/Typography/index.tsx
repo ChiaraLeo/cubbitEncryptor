@@ -1,13 +1,13 @@
+import useTranslate from 'customHooks/useTranslate'
 import React from 'react'
 import styled from 'styled-components'
 import { ConstString } from '../../language/encryptStrings'
-import translator from '../Translator'
 
 export type variantTypography = 'title' | 'subtitle' | 'caption'
 
 const Typography = (props: { constant: ConstString, variant: variantTypography }) => {
   const { constant, variant } = props
-  const traslatedString = translator({ constant })
+  const [traslatedString] = useTranslate([constant])
   switch (variant) {
     case 'subtitle':
       return (

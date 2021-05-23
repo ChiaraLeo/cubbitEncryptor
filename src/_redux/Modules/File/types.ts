@@ -1,5 +1,8 @@
 export type FileReducer = {
-  uploadedFile: any,
+  uploadedFile: {
+    file: any,
+    buffer: any
+  } | null,
   keyToShare: string | null,
   decryptedFile: {
     url: string,

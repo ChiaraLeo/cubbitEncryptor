@@ -1,20 +1,30 @@
-import React from 'react'
+import useMediaQuery from 'customHooks/useMediaQuery'
+import React, { useCallback } from 'react'
+import { useHistory } from 'react-router'
+import { Routes } from 'routes'
 import styled from 'styled-components'
 import SwitchLanguage from '../SwitchLanguage'
 import { ReactComponent as Icon } from './logo.svg'
-type Props = {
-  disabled: boolean;
-};
 
 const AppBar = () => {
+  const isDesktop = useMediaQuery('(min-width: 936px)')
+  const history = useHistory()
+  const handleClickIcon = useCallback(() => {
+    history.push(Routes.UPLOAD_FILE)
+  },
+  [history])
+
   return (
     <Container>
       <Bar>
-        <StyledIcon >
-          <Icon />
-        </StyledIcon>
-        <SwitchLanguage />
+        <a onClick={handleClickIcon} >
+          <StyledIcon >
+            <Icon />
+          </StyledIcon>
+        </a>
+        {isDesktop && <SwitchLanguage />}
       </Bar>
+      {!isDesktop && <SwitchLanguage />}
     </Container>
   )
 }
