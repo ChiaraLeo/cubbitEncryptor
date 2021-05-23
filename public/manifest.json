@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Cubbit encryptor",
+  "name": "Advanced online file encryption and decryption. Secure any file type and maintain your privacy!",
   "icons": [
     {
       "src": "favicon.ico",
