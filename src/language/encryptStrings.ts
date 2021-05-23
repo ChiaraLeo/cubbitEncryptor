@@ -9,12 +9,14 @@ export enum ConstString {
   DROPFILEHERE = 'DROPFILEHERE',
   DECRYPT = 'DECRYPT',
   ENCRYPT = 'ENCRYPT',
+  DECRYPTDOWNLOAD = 'DECRYPTDOWNLOAD',
   INSERTYOURKEY = 'INSERTYOURKEY',
   YOURENCRYPTIONKEY = 'YOURENCRYPTIONKEY'
 }
 
 export const encryptStrings = {
   [ConstString.DOWNLOAD]: `Download`,
+  [ConstString.DECRYPTDOWNLOAD]: `Decrypt and download`,
   [ConstString.INSERTYOURKEY]: `Insert your key:`,
   [ConstString.YOURENCRYPTIONKEY]: `Your encryption key:`,
   [ConstString.DROPFILEHERE]: `or drop file here`,

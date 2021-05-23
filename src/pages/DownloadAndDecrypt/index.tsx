@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { ConstString } from 'language/encryptStrings'
 import { useDispatch, useSelector } from 'react-redux'
 import { CubbitReduxStore } from '_redux'
@@ -6,26 +6,37 @@ import { decryptFileByKey } from '_redux/Modules/File/Actions'
 import styled from 'styled-components'
 import IconFileName from 'components/IconFileName'
 import TextInput from 'components/TextInput'
-import OrangeButton from 'components/OrangeButton'
 import useTranslate from 'customHooks/useTranslate'
+import OrangeButton from 'components/OrangeButton'
+import { requestResetAll } from '_redux/Modules/Request/Actions'
+import ReduxRequestKey from '_redux/Modules/Request/Keys'
 
 export const requestKeyDecryptFile = 'DECRYPT_FILE_KEY'
 
 const selectState = (state: CubbitReduxStore) => ({
-  uploadedFile: state.file.uploadedFile,
   fileName: state.file.uploadedFile?.file.name,
-  url: state.file.decryptedFile?.url
+  decryptedFile: state.file.decryptedFile,
+  requestEncryption: state?.request?.[requestKeyDecryptFile]?.status
 })
 
 const DowloadDecryptFile = () => {
   const dispatch = useDispatch()
-  const { fileName, url } = useSelector(selectState)
+  const { fileName, requestEncryption, decryptedFile } = useSelector(selectState)
   const [keyForDecrypt, setKeyForDecrypt] = useState<string>('')
-  const [downloadtext, youreencrypttext] = useTranslate([ConstString.DOWNLOAD, ConstString.YOURENCRYPTIONKEY])
+  const [downloadtext, youreencrypttext] = useTranslate([ConstString.DECRYPTDOWNLOAD, ConstString.YOURENCRYPTIONKEY])
 
   const onClickDecrypt = useCallback(() => {
     dispatch(decryptFileByKey(keyForDecrypt, requestKeyDecryptFile))
   }, [keyForDecrypt, dispatch])
+
+  useEffect(() => {
+    if (requestEncryption === ReduxRequestKey.REQUEST_SUCCESS) {
+      // dowload file here
+    }
+    return () => {
+      dispatch(requestResetAll())
+    }
+  }, [requestEncryption])
 
   return (
     <Container>
@@ -34,8 +45,7 @@ const DowloadDecryptFile = () => {
       </ContainerIcon>
       <StyledText>{youreencrypttext}</StyledText>
       <TextInput onChange={(e: any) => setKeyForDecrypt(e.target.value)} value={keyForDecrypt || ''} />
-      <a onClick={onClickDecrypt}> ENCRYPT </a>
-      <OrangeButton download={fileName || ''} href={url || ''} label={downloadtext} />
+      <OrangeButton onClick={onClickDecrypt} label={downloadtext} />
     </Container>
   )
 }

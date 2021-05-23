@@ -12,6 +12,7 @@ import Typography from 'components/Typography'
 import useTranslate from 'customHooks/useTranslate'
 import { requestResetAll } from '_redux/Modules/Request/Actions'
 import Uploader from 'components/Uploader'
+import Loader from 'components/Loader'
 
 export const requestKeyEncryptFile = 'ENCRYPT_FILE_KEY'
 
@@ -57,20 +58,22 @@ const UploadFile = () => {
       <PositionatedSubtitle>
         <Typography constant={ConstString.SUBTITLE} variant='subtitle' />
       </PositionatedSubtitle>
-      <Uploader onFileUpload={onFileUpload} uploadedFile={uploadedFile} />
-      <div>
-        <StyledButton
-          label={encrypttext}
-          disabled={!uploadedFile}
-          onClick={onClickEncypt}
-        />
-        <StyledButton
-          secondary
-          label={decrypttext}
-          disabled={!uploadedFile}
-          onClick={onClickDecrypt}
-        />
-      </div>
+      {isFetching ? <Loader /> : <>
+        <Uploader onFileUpload={onFileUpload} uploadedFile={uploadedFile} />
+        <div>
+          <StyledButton
+            label={encrypttext}
+            disabled={!uploadedFile}
+            onClick={onClickEncypt}
+          />
+          <StyledButton
+            secondary
+            label={decrypttext}
+            disabled={!uploadedFile}
+            onClick={onClickDecrypt}
+          />
+        </div>
+      </>}
     </>
 
   )

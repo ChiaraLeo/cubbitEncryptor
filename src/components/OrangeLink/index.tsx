@@ -1,18 +1,19 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const OrangeButton = (props: {
-  onClick: any,
+const OrangeLink = (props: {
+  download: string,
+  href: string,
   label: string
 }) => {
-  const { onClick, label } = props
+  const { download, href, label } = props
 
-  return <Button {...{ onClick }}>
+  return <Link {...{ download, href }}>
     {label}
-  </Button>
+  </Link>
 }
 
-const Button = styled.button`
+const Link = styled.a`
   background: #FFA047;
   color: #FFFFFF;
   margin-top: 47px;
@@ -23,7 +24,7 @@ const Button = styled.button`
   font-size: 16px;
   line-height: 48px;
   height: 48px;
-  width: 216px;
+  width: 168px;
   border: none;
   align-items: center;
   text-align: center;
@@ -31,4 +32,4 @@ const Button = styled.button`
     opacity: 0.8
   }
 `
-export default OrangeButton
+export default OrangeLink

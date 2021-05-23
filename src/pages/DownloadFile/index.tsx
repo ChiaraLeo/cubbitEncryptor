@@ -4,9 +4,9 @@ import { CubbitReduxStore } from '_redux'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import IconFileName from 'components/IconFileName'
-import OrangeButton from 'components/OrangeButton'
 import TextInput from 'components/TextInput'
 import useTranslate from 'customHooks/useTranslate'
+import OrangeLink from 'components/OrangeLink'
 
 const selectState = (state: CubbitReduxStore) => ({
   urlFile: state.file.encryptedFile?.url,
@@ -24,7 +24,7 @@ const DowloadFile = () => {
       </ContainerIcon>
       <StyledText>{encryptionkeytext}</StyledText>
       <TextInput withCopyButton value={keyToShare || ''} />
-      <OrangeButton download={fileName || ''} href={urlFile || ''} label={dowloadtext} />
+      <OrangeLink download={fileName || ''} href={urlFile || ''} label={dowloadtext} />
     </Container>
   )
 }
